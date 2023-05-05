@@ -1,0 +1,73 @@
+{
+    "zabbix_export": {
+        "version": "6.2",
+        "date": "2023-05-05T14:27:04Z",
+        "template_groups": [
+            {
+                "uuid": "dd6365ad19a04e8b98df5f3f16e4e6ae",
+                "name": "LVM Templates"
+            }
+        ],
+        "templates": [
+            {
+                "uuid": "e19161f7a29847eb87d64b4e12ef83ca",
+                "template": "LVM Xstore restore_xstore_prod log file",
+                "name": "LVM Xstore restore_xstore_prod log file",
+                "groups": [
+                    {
+                        "name": "LVM Templates"
+                    }
+                ],
+                "items": [
+                    {
+                        "uuid": "3dbe9f74b5ef49e1902db47358c53f0b",
+                        "name": "Error lines in log file",
+                        "type": "ZABBIX_ACTIVE",
+                        "key": "log[C:\\LVM\\XSTORE_v16\\xstoredb\\backup\\restore_xstore_prod.log,error]",
+                        "delay": "5m",
+                        "trends": "0",
+                        "value_type": "LOG",
+                        "triggers": [
+                            {
+                                "uuid": "b29f0a1790aa440fa89f4a16c7efbd8f",
+                                "expression": "length(last(/LVM Xstore restore_xstore_prod log file/log[C:\\LVM\\XSTORE_v16\\xstoredb\\backup\\restore_xstore_prod.log,error]))>0",
+                                "name": "Xstore - WARNING C:\\LVM\\XSTORE_v16\\xstoredb\\backup\\estore_xstore_prod.log file contain ERROR message",
+                                "priority": "WARNING",
+                                "manual_close": "YES"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "b50191f235e64574939e38e153500753",
+                        "name": "restore_xstore_prod.log file exists",
+                        "type": "ZABBIX_ACTIVE",
+                        "key": "vfs.file.exists[ C:\\LVM\\XSTORE_v16\\xstoredb\\backup\\restore_xstore_prod.log]",
+                        "delay": "5m",
+                        "triggers": [
+                            {
+                                "uuid": "72a8ce4cd4ba4c8eb23c784f620e3de7",
+                                "expression": "last(/LVM Xstore restore_xstore_prod log file/vfs.file.exists[ C:\\LVM\\XSTORE_v16\\xstoredb\\backup\\restore_xstore_prod.log])<>1",
+                                "name": "Xstore- WARNING - restore_xstore_prod.log file does not exist",
+                                "priority": "WARNING"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "4cd49213c8704a95bf6984cafba5b939",
+                        "name": "restore_xstore_prod.log file time check",
+                        "key": "vfs.file.time[\"C:\\LVM\\XSTORE_v16\\xstoredb\\backup\\restore_xstore_prod.log\"]",
+                        "delay": "24h",
+                        "triggers": [
+                            {
+                                "uuid": "665d6abbf34948b3a1bc75913631ae1f",
+                                "expression": "(now()- last(/LVM Xstore restore_xstore_prod log file/vfs.file.time[\"C:\\LVM\\XSTORE_v16\\xstoredb\\backup\\restore_xstore_prod.log\"]))>72000",
+                                "name": "Xstore- WARNING - restore_xstore_prod.log file does not exist in last 20 hrs",
+                                "priority": "WARNING"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

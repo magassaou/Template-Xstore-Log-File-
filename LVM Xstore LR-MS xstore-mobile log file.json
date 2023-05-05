@@ -1,0 +1,42 @@
+{
+    "zabbix_export": {
+        "version": "6.2",
+        "date": "2023-05-05T14:25:37Z",
+        "template_groups": [
+            {
+                "uuid": "dd6365ad19a04e8b98df5f3f16e4e6ae",
+                "name": "LVM Templates"
+            }
+        ],
+        "templates": [
+            {
+                "uuid": "e6921dc3af7141bb9b541283078080b2",
+                "template": "LVM Xstore LR-MS xstore-mobile log file",
+                "name": "LVM Xstore LR-MS xstore-mobile log file",
+                "groups": [
+                    {
+                        "name": "LVM Templates"
+                    }
+                ],
+                "items": [
+                    {
+                        "uuid": "e95ffac699da490fa924124789e6f938",
+                        "name": "CardServiceRequest failed lines in log file",
+                        "type": "ZABBIX_ACTIVE",
+                        "key": "log.count[C:\\LVM\\XSTORE_V16\\xstore-mobile\\log\\eftlink.log,\"CardServiceRequest failed\"]",
+                        "delay": "5m",
+                        "triggers": [
+                            {
+                                "uuid": "7de6980978124c13aa418a2f7547e2c8",
+                                "expression": "(max(/LVM Xstore LR-MS xstore-mobile log file/log.count[C:\\LVM\\XSTORE_V16\\xstore-mobile\\log\\eftlink.log,\"CardServiceRequest failed\"],30)- min(/LVM Xstore LR-MS xstore-mobile log file/log.count[C:\\LVM\\XSTORE_V16\\xstore-mobile\\log\\eftlink.log,\"CardServiceRequest failed\"],30))>20",
+                                "name": "Xstore - WARNING C:\\LVM\\XSTORE_v16\\xstoredb\\backup\\estore_xstore_prod.log file contain ERROR message",
+                                "priority": "WARNING",
+                                "manual_close": "YES"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}
